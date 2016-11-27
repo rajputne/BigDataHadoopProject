@@ -24,12 +24,16 @@ public class ExtractTweetReducer extends Reducer<Text, Text, Text, Text> {
         String myValue = "";
         for (Text value : values) {
             myValue = value.toString();
-            
+
             if (myValue.contains("Hash")) {
+
                 String hashTagSeparator[] = myValue.split("Hash");
+
                 String cleartext = hashTagSeparator[0].replaceAll("http.*?\\s", " ");
+
+                //Do Sentiment analysis and Topic Modelling on the clearText String
                 context.write(new Text(cleartext), new Text(hashTagSeparator[1]));
-               // context.write(key, value);
+                // context.write(key, value);
             }
         }
     }
